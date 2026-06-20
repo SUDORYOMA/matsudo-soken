@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>フォームテスト送信</title>
+<style>
+  body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; background: #111; color: #fff; flex-direction: column; gap: 16px; }
+  p { font-size: 18px; }
+  .status { color: #ff2e74; font-size: 14px; }
+</style>
+</head>
+<body>
+<p>このページを開いたら<br>下のボタンを押してください</p>
+<button onclick="send()" style="padding:12px 32px;background:#ff2e74;color:#fff;border:none;border-radius:8px;font-size:16px;cursor:pointer;">
+  テストメールを送信する
+</button>
+<div class="status" id="status"></div>
+
+<script>
+async function send() {
+  const btn = document.querySelector('button');
+  const status = document.getElementById('status');
+  btn.disabled = true;
+  btn.textContent = '送信中…';
+  status.textContent = '';
+
+  const data = new FormData();
+  data.append('name', 'テスト送信（フォーム確認）');
+  data.append('tel', '080-4478-0600');
+  data.append('施工場所', 'テスト');
+  data.append('ご相談内容', 'これはフォーム動作確認のテスト送信です。');
+  data.append('_subject', '【松戸総建】フォーム動作確認テスト');
+  data.append('_captcha', 'false');
+  data.append('_template', 'table');
+
+  try {
+    const res = await fetch('https://formsubmit.co/ajax/matsudosouken517@outlook.jp', {
+      method: 'POST',
+      headers: { Accept: 'application/json' },
+      body: data,
+    });
+    const json = await res.json();
+    if (json.success === 'true' || json.success === true) {
+      btn.textContent = '送信完了！';
+      status.style.color = '#4caf50';
+      status.textContent = '✅ matsudosouken517@outlook.jp に確認メールが届きます。メール内の「Activate Form」をクリックしてください。';
+    } else {
+      throw new Error();
+    }
+  } catch {
+    btn.textContent = '送信失敗';
+    btn.disabled = false;
+    status.style.color = '#ff2e74';
+    status.textContent = '❌ 送信に失敗しました。もう一度お試しください。';
+  }
+}
+</script>
+</body>
+</html>
