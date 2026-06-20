@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ファーストビュー 改良案 | 松戸総建</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#0b0b0c; --pink:#ff2e74; --pink2:#ff5c92; --text:#f6f5f3; --soft:#c9c7c3; --muted:#8a888a;
+    --grad-pink:linear-gradient(135deg,#ff2e74 0%,#ff6a4d 100%);
+    --jp:"Noto Sans JP",sans-serif; --mono:"JetBrains Mono",monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:#08080a;color:var(--text);font-family:var(--jp);padding:48px 24px 96px;}
+  .page-head{max-width:1160px;margin:0 auto 40px;}
+  .page-head .ey{font-family:var(--mono);font-size:12px;letter-spacing:.2em;color:var(--pink);text-transform:uppercase;display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+  .page-head .ey::before{content:"";width:28px;height:1px;background:var(--pink);}
+  .page-head h1{font-size:32px;font-weight:900;letter-spacing:.02em;margin-bottom:12px;}
+  .page-head p{color:var(--soft);font-size:15px;max-width:680px;line-height:1.8;}
+  .opt{max-width:1160px;margin:0 auto 56px;}
+  .opt-label{display:flex;align-items:baseline;gap:16px;margin-bottom:16px;}
+  .opt-label .tag{font-family:var(--mono);font-size:13px;font-weight:700;color:#0a0a0a;background:var(--grad-pink);padding:6px 14px;border-radius:999px;letter-spacing:.05em;}
+  .opt-label h2{font-size:22px;font-weight:700;}
+  .opt-label .desc{color:var(--muted);font-size:13px;margin-left:auto;text-align:right;max-width:420px;line-height:1.6;}
+
+  /* hero frame */
+  .frame{position:relative;width:100%;aspect-ratio:16/9;border-radius:16px;overflow:hidden;border:1px solid rgba(255,255,255,.1);}
+  .frame .bg{position:absolute;inset:0;background:url(assets/hero-house.svg) center/cover no-repeat;}
+  .tag-pill{display:inline-flex;align-items:center;gap:9px;padding:7px 13px 7px 10px;border-radius:999px;background:rgba(255,46,116,.12);border:1px solid rgba(255,46,116,.35);font-size:12px;color:var(--pink2);letter-spacing:.06em;}
+  .tag-pill .dot{width:6px;height:6px;border-radius:50%;background:var(--pink);box-shadow:0 0 10px var(--pink);}
+  .logo{height:clamp(34px,5vw,56px);width:auto;display:block;}
+  .hl{font-weight:900;line-height:1.3;letter-spacing:.02em;}
+  .hl .pink{color:var(--pink);}
+  .pts{display:flex;flex-direction:column;gap:9px;}
+  .pts li{display:flex;align-items:center;gap:12px;font-weight:700;list-style:none;}
+  .pts .n{flex-shrink:0;width:26px;height:26px;border-radius:50%;background:var(--grad-pink);color:#0a0a0a;display:grid;place-items:center;font-family:var(--mono);font-size:13px;font-weight:700;}
+  .ctas{display:flex;gap:10px;flex-wrap:wrap;}
+  .btn{display:inline-flex;align-items:center;gap:7px;padding:13px 22px;border-radius:999px;font-weight:700;font-size:13px;letter-spacing:.03em;text-decoration:none;white-space:nowrap;}
+  .btn-pink{background:var(--grad-pink);color:#0a0a0a;box-shadow:0 12px 34px -12px rgba(255,46,116,.6);}
+  .btn-ghost{background:rgba(10,10,12,.5);color:#fff;border:1px solid rgba(255,255,255,.25);backdrop-filter:blur(4px);}
+  .btn-line{background:#06c755;color:#fff;}
+
+  /* ---- Option A: left editorial ---- */
+  .a-scrim{position:absolute;inset:0;background:linear-gradient(90deg,rgba(8,8,10,.94) 0%,rgba(8,8,10,.8) 38%,rgba(8,8,10,.25) 62%,transparent 100%);}
+  .a-wrap{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;gap:20px;padding:0 7%;max-width:620px;}
+  .a-wrap .hl{font-size:clamp(22px,3.4vw,38px);}
+  .a-wrap .pts li{font-size:15px;}
+
+  /* ---- Option B: lower-left + frosted CTA card ---- */
+  .b-scrim{position:absolute;inset:0;background:linear-gradient(0deg,rgba(8,8,10,.92) 0%,rgba(8,8,10,.55) 35%,transparent 70%),linear-gradient(90deg,rgba(8,8,10,.7),transparent 55%);}
+  .b-wrap{position:absolute;left:6%;right:6%;bottom:7%;display:flex;align-items:flex-end;justify-content:space-between;gap:32px;}
+  .b-left{display:flex;flex-direction:column;gap:16px;max-width:560px;}
+  .b-left .hl{font-size:clamp(22px,3.2vw,36px);}
+  .b-left .pts{flex-direction:row;flex-wrap:wrap;gap:8px 18px;}
+  .b-left .pts li{font-size:13px;}
+  .b-card{flex-shrink:0;width:280px;padding:22px;border-radius:16px;background:rgba(15,14,18,.66);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.12);display:flex;flex-direction:column;gap:10px;}
+  .b-card .lbl{font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--muted);}
+  .b-card .tel{font-family:var(--mono);font-size:24px;font-weight:700;margin-bottom:6px;}
+  .b-card .btn{justify-content:center;}
+
+  /* ---- Option C: centered + bottom trust bar ---- */
+  .c-scrim{position:absolute;inset:0;background:radial-gradient(80% 70% at 50% 42%,rgba(8,8,10,.85),rgba(8,8,10,.55) 70%,rgba(8,8,10,.85)),linear-gradient(0deg,rgba(8,8,10,.95),transparent 30%);}
+  .c-wrap{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:18px;padding:0 8% 70px;}
+  .c-wrap .logo{height:clamp(70px,11vw,128px);}
+  .c-wrap .hl{font-size:clamp(22px,3.4vw,40px);}
+  .c-wrap .pts{flex-direction:row;gap:8px 22px;flex-wrap:wrap;justify-content:center;}
+  .c-wrap .pts li{font-size:14px;}
+  .c-wrap .ctas{justify-content:center;}
+  .c-bar{position:absolute;left:0;right:0;bottom:0;display:flex;border-top:1px solid rgba(255,255,255,.12);background:rgba(8,8,10,.6);backdrop-filter:blur(8px);}
+  .c-bar div{flex:1;padding:14px;text-align:center;border-right:1px solid rgba(255,255,255,.08);}
+  .c-bar div:last-child{border-right:none;}
+  .c-bar .num{font-family:var(--mono);font-size:18px;font-weight:700;color:var(--pink);}
+  .c-bar .t{font-size:11px;color:var(--soft);margin-top:2px;}
+
+  @media(max-width:760px){
+    .opt-label{flex-direction:column;gap:8px;}
+    .opt-label .desc{margin-left:0;text-align:left;}
+  }
+</style>
+</head>
+<body>
+  <div class="page-head">
+    <div class="ey">First View / 改良案</div>
+    <h1>ファーストビュー 3つの改良案</h1>
+    <p>背景をよりリアルな住宅（夕暮れの戸建て）に差し替えたうえで、バランスを整えた3案です。気に入った案の番号を教えていただければ、本番ページ（index.html）に適用します。いずれもスマホ版は自動で中央寄せに切り替わります。</p>
+  </div>
+
+  <!-- OPTION A -->
+  <section class="opt">
+    <div class="opt-label">
+      <span class="tag">案 A</span>
+      <h2>左寄せ・エディトリアル</h2>
+      <span class="desc">テキストを左に固定し縦中央配置。左から暗いスクリムをかけて視認性を確保。最も王道で力強い構成。</span>
+    </div>
+    <div class="frame">
+      <div class="bg"></div>
+      <div class="a-scrim"></div>
+      <div class="a-wrap">
+        <span class="tag-pill"><span class="dot"></span>現地調査・お見積り 完全無料</span>
+        <img class="logo" src="assets/logo-full.png" alt="松戸総建" />
+        <p class="hl">地域密着工務店だからこその<br /><span class="pink">安心と価値。</span></p>
+        <ul class="pts">
+          <li><span class="n">1</span>綿密なやり取り</li>
+          <li><span class="n">2</span>適正な材料グレードの選定</li>
+          <li><span class="n">3</span>自社施工によるコストカット</li>
+        </ul>
+        <div class="ctas">
+          <a class="btn btn-pink" href="#">無料見積りを依頼する →</a>
+          <a class="btn btn-ghost" href="#">電話で相談</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OPTION B -->
+  <section class="opt">
+    <div class="opt-label">
+      <span class="tag">案 B</span>
+      <h2>下部左寄せ ＋ 連絡カード</h2>
+      <span class="desc">住宅を大きく見せつつ、下部にコピー。右下にフロスト加工の連絡カード（電話＋CTA）を独立配置。情報がまとまり行動につながる構成。</span>
+    </div>
+    <div class="frame">
+      <div class="bg"></div>
+      <div class="b-scrim"></div>
+      <div class="b-wrap">
+        <div class="b-left">
+          <img class="logo" src="assets/logo-full.png" alt="松戸総建" />
+          <p class="hl">地域密着工務店だからこその <span class="pink">安心と価値。</span></p>
+          <ul class="pts">
+            <li><span class="n">1</span>綿密なやり取り</li>
+            <li><span class="n">2</span>適正な材料グレード</li>
+            <li><span class="n">3</span>自社施工でコストカット</li>
+          </ul>
+        </div>
+        <div class="b-card">
+          <span class="lbl">お電話でのご相談</span>
+          <span class="tel">080-4478-0600</span>
+          <a class="btn btn-pink" href="#">無料見積りを依頼する</a>
+          <a class="btn btn-line" href="#">LINEで相談する</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OPTION C -->
+  <section class="opt">
+    <div class="opt-label">
+      <span class="tag">案 C</span>
+      <h2>中央寄せ ＋ 実績バー</h2>
+      <span class="desc">コピーを中央に配置し、下部に「無料見積り／3県対応／24h受付」の実績バーを固定。PC・スマホ共通で破綻しにくい構成。</span>
+    </div>
+    <div class="frame">
+      <div class="bg"></div>
+      <div class="c-scrim"></div>
+      <div class="c-wrap">
+        <span class="tag-pill"><span class="dot"></span>現地調査・お見積り 完全無料</span>
+        <img class="logo" src="assets/logo-full.png" alt="松戸総建" />
+        <p class="hl">地域密着工務店だからこその <span class="pink">安心と価値。</span></p>
+        <ul class="pts">
+          <li><span class="n">1</span>綿密なやり取り</li>
+          <li><span class="n">2</span>適正な材料グレードの選定</li>
+          <li><span class="n">3</span>自社施工によるコストカット</li>
+        </ul>
+        <div class="ctas">
+          <a class="btn btn-pink" href="#">無料見積りを依頼する →</a>
+          <a class="btn btn-ghost" href="#">電話で相談</a>
+          <a class="btn btn-line" href="#">LINE</a>
+        </div>
+      </div>
+      <div class="c-bar">
+        <div><div class="num">¥0</div><div class="t">現地調査・見積り無料</div></div>
+        <div><div class="num">3県</div><div class="t">千葉・東京・神奈川対応</div></div>
+        <div><div class="num">24h</div><div class="t">受付対応</div></div>
+      </div>
+    </div>
+  </section>
+</body>
+</html>
