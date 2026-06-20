@@ -27,10 +27,98 @@
 <meta name="twitter:description" content="千葉・東京・神奈川対応。現地調査・お見積り無料。外壁・防水・内装工事のご相談はお気軽に。" />
 <meta name="twitter:image" content="https://matsudosouken.com/project/assets/logo-full.png" />
 
+<!-- ===== Preload critical assets ===== -->
+<link rel="preload" href="project/assets/logo-full.png" as="image" />
+<link rel="preload" href="project/assets/hero-house.svg" as="image" />
+
 <!-- ===== Fonts ===== -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+
+<!-- ===== JSON-LD 構造化データ (FAQPage) ===== -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "見積りは無料ですか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "はい。現地調査・お見積りともに無料です。お見積り後のご検討も自由ですので、お気軽にご相談ください。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "相見積りでも大丈夫ですか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "もちろん可能です。比較検討のうえご判断ください。当社では適正価格と分かりやすいご説明を心がけております。内容確認だけでも宜しいので、是非お見積り取得ください。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "対応エリア外でも相談できますか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "内容によって対応可能です。まずはご相談ください。エリア外の場合も柔軟に検討させていただきます。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "工事期間はどれくらいですか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "施工内容や規模によって異なります。現地調査後にスケジュールを詳細にご案内いたします。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "雨天時はどうなりますか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "安全と品質を最優先し、必要に応じて日程を調整いたします。お客様のご都合と合わせて柔軟に対応します。"
+      }
+    }
+  ]
+}
+</script>
+
+<!-- ===== JSON-LD 構造化データ (Services) ===== -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "itemListElement": [
+    {
+      "@type": "Service",
+      "position": 1,
+      "name": "外壁塗装工事",
+      "description": "住まいの美観維持だけでなく、防水性・耐久性を高めるための外壁塗装。外壁塗装・屋根塗装・外壁補修・クラック補修・下地処理・シーリング補修に対応。",
+      "provider": {"@type": "LocalBusiness", "name": "松戸総建"},
+      "areaServed": ["千葉県", "東京都", "神奈川県"]
+    },
+    {
+      "@type": "Service",
+      "position": 2,
+      "name": "防水工事",
+      "description": "雨漏りや劣化から建物を守る防水施工。ベランダ防水・屋上防水・ウレタン防水・FRP防水・シート防水・シーリング工事に対応。",
+      "provider": {"@type": "LocalBusiness", "name": "松戸総建"},
+      "areaServed": ["千葉県", "東京都", "神奈川県"]
+    },
+    {
+      "@type": "Service",
+      "position": 3,
+      "name": "内装工事",
+      "description": "快適な室内空間づくりをサポート。クロス張替え・壁紙補修・原状回復工事・内装リフォーム・各種補修工事に対応。",
+      "provider": {"@type": "LocalBusiness", "name": "松戸総建"},
+      "areaServed": ["千葉県", "東京都", "神奈川県"]
+    }
+  ]
+}
+</script>
 
 <!-- ===== JSON-LD 構造化データ (LocalBusiness) ===== -->
 <script type="application/ld+json">
@@ -2006,7 +2094,7 @@ section { padding: 100px 0; position: relative; }
      HERO
      ============================================= -->
 <section class="hero" id="top">
-  <img class="hero-bg" src="project/assets/hero-house.svg" alt="" aria-hidden="true" />
+  <img class="hero-bg" src="project/assets/hero-house.svg" alt="" aria-hidden="true" fetchpriority="high" />
   <div class="hero-overlay"></div>
   <div class="container hero-inner">
     <div class="hero-text">
@@ -2015,10 +2103,10 @@ section { padding: 100px 0; position: relative; }
         現地調査・お見積り 完全無料
       </div>
       <img class="hero-brand-logo" src="project/assets/logo-full.png" alt="松戸総建" />
-      <p class="hero-headline">
+      <h1 class="hero-headline">
         地域密着工務店だからこその
         <span class="pink">安心と価値。</span>
-      </p>
+      </h1>
       <ul class="hero-points">
         <li><span class="hero-points-num">1</span>綿密なやり取り</li>
         <li><span class="hero-points-num">2</span>適正な材料グレードの選定</li>
@@ -2081,7 +2169,7 @@ section { padding: 100px 0; position: relative; }
     <div class="services-grid reveal">
       <article class="service">
         <div class="service-img">
-          <img class="service-photo" src="project/assets/service-exterior.png" alt="外壁塗装施工" />
+          <img class="service-photo" src="project/assets/service-exterior.png" alt="外壁塗装施工" loading="lazy" />
           <span class="service-num">SERVICE 01</span>
         </div>
         <div class="service-body">
@@ -2101,7 +2189,7 @@ section { padding: 100px 0; position: relative; }
 
       <article class="service">
         <div class="service-img">
-          <img class="service-photo" src="project/assets/service-waterproof.png" alt="防水工事施工" />
+          <img class="service-photo" src="project/assets/service-waterproof.png" alt="防水工事施工" loading="lazy" />
           <span class="service-num">SERVICE 02</span>
         </div>
         <div class="service-body">
@@ -2121,7 +2209,7 @@ section { padding: 100px 0; position: relative; }
 
       <article class="service">
         <div class="service-img">
-          <img class="service-photo" src="project/assets/service-interior.png" alt="内装工事施工" />
+          <img class="service-photo" src="project/assets/service-interior.png" alt="内装工事施工" loading="lazy" />
           <span class="service-num">SERVICE 03</span>
         </div>
         <div class="service-body">
